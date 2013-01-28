@@ -15,7 +15,7 @@ template <size_t N>
 using Buffer = std::array<Sample, N>;
 
 template <size_t N1, size_t N2>
-void add(const Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
+void add(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -27,7 +27,7 @@ void add(const Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
 }
 
 template <size_t N1, size_t N2, size_t N3>
-void add(const Buffer<N1> &dst, const Buffer<N2> &x,
+void add(Buffer<N1> &dst, const Buffer<N2> &x,
          const Buffer<N3> &y) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
@@ -42,7 +42,7 @@ void add(const Buffer<N1> &dst, const Buffer<N2> &x,
 }
 
 template <size_t N1, size_t N2>
-void sub(const Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
+void sub(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -227,7 +227,7 @@ void madd(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y,
     auto yIt = y.begin();
     auto zIt = z.begin();
     auto dstEnd = dstIt + length;
-    for (; dstIt != dstEnd; dstIt++, xIt++, yIt++) {
+    for (; dstIt != dstEnd; dstIt++, xIt++, yIt++, zIt++) {
         *dstIt = (*xIt) + (*yIt) * (*zIt);
     }
 }
