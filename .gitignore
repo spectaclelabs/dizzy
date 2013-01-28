@@ -11,3 +11,7 @@
 *.lai
 *.la
 *.a
+
+# Test executables
+tests/testMath
+tests/testAlgebra
