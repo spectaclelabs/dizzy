@@ -456,7 +456,8 @@ Sample min(const Buffer<N> &x) {
 
 template <size_t N>
 Sample sum(const Buffer<N> &x) {
-    return std::accumulate(x.begin(), x.end());
+    Sample s = std::accumulate(x.begin(), x.end(), 0.0f);
+    return s;
 }
 
 template <size_t N>
