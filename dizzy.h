@@ -9,13 +9,8 @@
 
 namespace dizzy {
 
-typedef float Sample;
-
-template <size_t N>
-using Buffer = std::array<Sample, N>;
-
-template <size_t N1, size_t N2>
-void add(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
+template <typename T>
+void add(T &dst, const T &x, float y) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -26,9 +21,9 @@ void add(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void add(Buffer<N1> &dst, const Buffer<N2> &x,
-         const Buffer<N3> &y) {
+template <typename T>
+void add(T &dst, const T &x,
+         const T &y) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
 
@@ -41,8 +36,8 @@ void add(Buffer<N1> &dst, const Buffer<N2> &x,
     }
 }
 
-template <size_t N1, size_t N2>
-void sub(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
+template <typename T>
+void sub(T &dst, const T &x, float y) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -53,8 +48,8 @@ void sub(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void sub(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
+template <typename T>
+void sub(T &dst, const T &x, const T &y) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
 
@@ -67,8 +62,8 @@ void sub(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
     }
 }
 
-template <size_t N1, size_t N2>
-void mul(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
+template <typename T>
+void mul(T &dst, const T &x, float y) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -79,8 +74,8 @@ void mul(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void mul(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
+template <typename T>
+void mul(T &dst, const T &x, const T &y) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
 
@@ -93,10 +88,10 @@ void mul(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3, size_t N4>
-void mulCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
-             const Buffer<N3> &xReal, const Buffer<N4> &xImag,
-             Sample yReal, Sample yImag) {
+template <typename T>
+void mulCplx(T &dstReal, T &dstImag,
+             const T &xReal, const T &xImag,
+             float yReal, float yImag) {
     size_t length = std::min(dstReal.size(), dstImag.size());
     length = std::min(length, xReal.size());
     length = std::min(length, xImag.size());
@@ -111,10 +106,10 @@ void mulCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
     }
 }
 
-template <size_t N1, size_t N2, size_t N3, size_t N4, size_t N5, size_t N6>
-void mulCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
-             const Buffer<N3> &xReal, const Buffer<N4> &xImag,
-             const Buffer<N5> &yReal, const Buffer<N6> &yImag) {
+template <typename T>
+void mulCplx(T &dstReal, T &dstImag,
+             const T &xReal, const T &xImag,
+             const T &yReal, const T &yImag) {
     size_t length = std::min(dstReal.size(), dstImag.size());
     length = std::min(length, xReal.size());
     length = std::min(length, xImag.size());
@@ -132,8 +127,8 @@ void mulCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
     }
 }
 
-template <size_t N1, size_t N2>
-void div(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
+template <typename T>
+void div(T &dst, const T &x, float y) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -144,8 +139,8 @@ void div(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void div(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
+template <typename T>
+void div(T &dst, const T &x, const T &y) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
 
@@ -158,15 +153,15 @@ void div(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3, size_t N4>
-void divCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
-             const Buffer<N3> &xReal, const Buffer<N4> &xImag,
-             Sample yReal, Sample yImag) {
+template <typename T>
+void divCplx(T &dstReal, T &dstImag,
+             const T &xReal, const T &xImag,
+             float yReal, float yImag) {
     size_t length = std::min(dstReal.size(), dstImag.size());
     length = std::min(length, xReal.size());
     length = std::min(length, xImag.size());
 
-    Sample denom = yReal * yReal + yImag * yImag;
+    float denom = yReal * yReal + yImag * yImag;
 
     auto dstRealIt = dstReal.begin(), dstImagIt = dstImag.begin();
     auto xRealIt = xReal.begin(), xImagIt = xImag.begin();
@@ -178,10 +173,10 @@ void divCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
     }
 }
 
-template <size_t N1, size_t N2, size_t N3, size_t N4, size_t N5, size_t N6>
-void divCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
-             const Buffer<N3> &xReal, const Buffer<N4> &xImag,
-             const Buffer<N5> &yReal, const Buffer<N6> &yImag) {
+template <typename T>
+void divCplx(T &dstReal, T &dstImag,
+             const T &xReal, const T &xImag,
+             const T &yReal, const T &yImag) {
     size_t length = std::min(dstReal.size(), dstImag.size());
     length = std::min(length, xReal.size());
     length = std::min(length, xImag.size());
@@ -194,14 +189,14 @@ void divCplx(Buffer<N1> &dstReal, Buffer<N2> &dstImag,
     auto dstEnd = dstRealIt + length;
     for (; dstRealIt != dstEnd;
          dstRealIt++, dstImagIt++, xRealIt++, xImagIt++, yRealIt++, yImagIt++) {
-        Sample denom = (*yRealIt) * (*yRealIt) + (*yImagIt) * (*yImagIt);
+        float denom = (*yRealIt) * (*yRealIt) + (*yImagIt) * (*yImagIt);
         *dstRealIt = ((*xRealIt) * (*yRealIt) + (*xImagIt) * (*yImagIt)) / denom;
         *dstImagIt = ((*xImagIt) * (*yRealIt) - (*xRealIt) * (*yImagIt)) / denom;   
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void madd(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y, Sample z) {
+template <typename T>
+void madd(T &dst, const T &x, const T &y, float z) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
 
@@ -215,9 +210,9 @@ void madd(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y, Sample z) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3, size_t N4>
-void madd(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y,
-          const Buffer<N4> &z) {
+template <typename T>
+void madd(T &dst, const T &x, const T &y,
+          const T &z) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
     length = std::min(length, z.size());
@@ -232,8 +227,8 @@ void madd(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y,
     }
 }
 
-template <size_t N1, size_t N2>
-void abs(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void abs(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -244,9 +239,9 @@ void abs(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void absCplx(Buffer<N1> &dst, const Buffer<N2> &xReal,
-             const Buffer<N3> &xImag) {
+template <typename T>
+void absCplx(T &dst, const T &xReal,
+             const T &xImag) {
     size_t length = std::min(dst.size(), xReal.size());
     length = std::min(length, xImag.size());
 
@@ -259,8 +254,8 @@ void absCplx(Buffer<N1> &dst, const Buffer<N2> &xReal,
     }
 }
 
-template <size_t N1, size_t N2>
-void sin(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void sin(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -271,8 +266,8 @@ void sin(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void cos(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void cos(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -283,8 +278,8 @@ void cos(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void tan(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void tan(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -295,8 +290,8 @@ void tan(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void acos(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void acos(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -307,8 +302,8 @@ void acos(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void asin(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void asin(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -319,8 +314,8 @@ void asin(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void atan(Buffer<N1> &dst, const Buffer<N2> &x) {   
+template <typename T>
+void atan(T &dst, const T &x) {   
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -331,8 +326,8 @@ void atan(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void atan2(Buffer<N1> &dst, const Buffer<N2> &y, const Buffer<N3> &x) {
+template <typename T>
+void atan2(T &dst, const T &y, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -344,8 +339,8 @@ void atan2(Buffer<N1> &dst, const Buffer<N2> &y, const Buffer<N3> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void ceil(Buffer<N1> &dst, const Buffer<N2> &x) {   
+template <typename T>
+void ceil(T &dst, const T &x) {   
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -356,8 +351,8 @@ void ceil(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void floor(Buffer<N1> &dst, const Buffer<N2> &x) {  
+template <typename T>
+void floor(T &dst, const T &x) {  
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -368,8 +363,8 @@ void floor(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void round(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void round(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -380,8 +375,8 @@ void round(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void exp(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void exp(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -392,8 +387,8 @@ void exp(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void log(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void log(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -404,8 +399,8 @@ void log(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2>
-void pow(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
+template <typename T>
+void pow(T &dst, const T &x, float y) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -417,8 +412,8 @@ void pow(Buffer<N1> &dst, const Buffer<N2> &x, Sample y) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void pow(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
+template <typename T>
+void pow(T &dst, const T &x, const T &y) {
     size_t length = std::min(dst.size(), x.size());
     length = std::min(length, y.size());
 
@@ -432,8 +427,8 @@ void pow(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &y) {
     }
 }
 
-template <size_t N1, size_t N2>
-void sqrt(Buffer<N1> &dst, const Buffer<N2> &x) {
+template <typename T>
+void sqrt(T &dst, const T &x) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -444,35 +439,35 @@ void sqrt(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N>
-Sample max(const Buffer<N> &x) {
+template <typename T>
+float max(const T &x) {
     return *std::max_element(x.begin(), x.end());
 }
 
-template <size_t N>
-Sample min(const Buffer<N> &x) {
+template <typename T>
+float min(const T &x) {
     return *std::min_element(x.begin(), x.end());
 }
 
-template <size_t N>
-Sample sum(const Buffer<N> &x) {
-    Sample s = std::accumulate(x.begin(), x.end(), 0.0f);
+template <typename T>
+float sum(const T &x) {
+    float s = std::accumulate(x.begin(), x.end(), 0.0f);
     return s;
 }
 
-template <size_t N>
-void random(Buffer<N> &dst, Sample low = 0.0f, Sample high = 1.0f) {
-    Sample diff = high - low;
+template <typename T>
+void random(T &dst, float low = 0.0f, float high = 1.0f) {
+    float diff = high - low;
 
     auto dstIt = dst.begin();
     auto dstEnd = dst.end();
     for (; dstIt != dstEnd; dstIt++) {
-        *dstIt = ((Sample) std::rand() / RAND_MAX) * diff + low;
+        *dstIt = ((float) std::rand() / RAND_MAX) * diff + low;
     }
 }
 
-template <size_t N1, size_t N2>
-void clamp(Buffer<N1> &dst, const Buffer<N2> &x, Sample xMin, Sample xMax) {
+template <typename T>
+void clamp(T &dst, const T &x, float xMin, float xMax) {
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -491,8 +486,8 @@ void clamp(Buffer<N1> &dst, const Buffer<N2> &x, Sample xMin, Sample xMax) {
     }
 }
 
-template <size_t N1, size_t N2>
-void fract(Buffer<N1> &dst, const Buffer<N2> &x) {  
+template <typename T>
+void fract(T &dst, const T &x) {  
     size_t length = std::min(dst.size(), x.size());
 
     auto dstIt = dst.begin();
@@ -503,11 +498,11 @@ void fract(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N>
-void ramp(Buffer<N> &dst, Sample first, Sample last) {
+template <typename T>
+void ramp(T &dst, float first, float last) {
     size_t length = dst.size();
 
-    Sample increment = (last - first) / (length - 1u);
+    float increment = (last - first) / (length - 1u);
 
     auto dstIt = dst.begin();
     auto dstEnd = dst.end();
@@ -517,8 +512,8 @@ void ramp(Buffer<N> &dst, Sample first, Sample last) {
     }
 }
 
-template <size_t N1, size_t N2>
-void sign(Buffer<N1> &dst, const Buffer<N2> &x) {   
+template <typename T>
+void sign(T &dst, const T &x) {   
     /* Is there a faster way to work out whether we have +0.0 or -0.0?
      * Mainly want to get rid of the division */
     size_t length = std::min(dst.size(), x.size());
@@ -533,7 +528,7 @@ void sign(Buffer<N1> &dst, const Buffer<N2> &x) {
         else if (*xIt < 0.0f) {
             *dstIt = -1.0f;
         }
-        else if (1.0f / *xIt == std::numeric_limits<Sample>::infinity()) {
+        else if (1.0f / *xIt == std::numeric_limits<float>::infinity()) {
             *dstIt = 1.0f;
         }
         else {
@@ -542,8 +537,8 @@ void sign(Buffer<N1> &dst, const Buffer<N2> &x) {
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void sampleLinear(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &t,
+template <typename T>
+void sampleLinear(T &dst, const T &x, const T &t,
                   bool repeat=false) {
     size_t length = std::min(dst.size(), t.size());
     size_t xLength = x.size();
@@ -554,32 +549,32 @@ void sampleLinear(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &t,
     auto dstEnd = dstIt + length;
 
     if (repeat) {
-        Sample invXLength = 1.0f / xLength;
+        float invXLength = 1.0f / xLength;
 
         for (; dstIt != dstEnd; dstIt++, tIt++) {
-            Sample tDash = *tIt - std::floor(*tIt * invXLength) * xLength;
+            float tDash = *tIt - std::floor(*tIt * invXLength) * xLength;
             uint32_t idx = tDash;
-            Sample w = tDash - idx;
-            Sample p1 = x[idx];
-            Sample p2 = x[idx < maxIndex ? idx + 1u : 0u];
+            float w = tDash - idx;
+            float p1 = x[idx];
+            float p2 = x[idx < maxIndex ? idx + 1u : 0u];
             *dstIt = p1 + w * (p2 - p1);
         }
     }
     else {
         for (; dstIt != dstEnd; dstIt++, tIt++) {
-            Sample tDash = *tIt < 0.0f ? 0.0f :
+            float tDash = *tIt < 0.0f ? 0.0f :
                 (*tIt > maxIndex ? maxIndex : *tIt);
             uint32_t idx = tDash;
-            Sample w = tDash - idx;
-            Sample p1 = x[idx];
-            Sample p2 = x[idx < maxIndex ? idx + 1u : maxIndex];
+            float w = tDash - idx;
+            float p1 = x[idx];
+            float p2 = x[idx < maxIndex ? idx + 1u : maxIndex];
             *dstIt = p1 + w * (p2 - p1);
         }
     }
 }
 
-template <size_t N1, size_t N2, size_t N3>
-void sampleCubic(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &t,
+template <typename T>
+void sampleCubic(T &dst, const T &x, const T &t,
                  bool repeat=false)  {
     size_t length = std::min(dst.size(), t.size());
     size_t xLength = x.size();
@@ -590,22 +585,22 @@ void sampleCubic(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &t,
     auto dstEnd = dstIt + length;
 
     if (repeat) {
-        Sample invXLength = 1.0f / xLength;
+        float invXLength = 1.0f / xLength;
 
         for (; dstIt != dstEnd; dstIt++, tIt++) {
-            Sample tDash = *tIt - std::floor(*tIt * invXLength) * xLength;
+            float tDash = *tIt - std::floor(*tIt * invXLength) * xLength;
             uint32_t idx = tDash;
-            Sample w = tDash - idx;
-            Sample w2 = w * w;
-            Sample w3 = w2 * w;
-            Sample h2 = -2.0f * w3 + 3.0f * w2;
-            Sample h1 = 1.0f - h2;
-            Sample h4 = w3 - w2;
-            Sample h3 = h4 - w2 + w;
-            Sample p1 = x[idx > 0u ? idx - 1u : maxIndex];
-            Sample p2 = x[idx];
-            Sample p3 = x[idx < maxIndex ? idx + 1u : 0u];
-            Sample p4 = x[idx < maxIndex - 1u ? idx + 2u :
+            float w = tDash - idx;
+            float w2 = w * w;
+            float w3 = w2 * w;
+            float h2 = -2.0f * w3 + 3.0f * w2;
+            float h1 = 1.0f - h2;
+            float h4 = w3 - w2;
+            float h3 = h4 - w2 + w;
+            float p1 = x[idx > 0u ? idx - 1u : maxIndex];
+            float p2 = x[idx];
+            float p3 = x[idx < maxIndex ? idx + 1u : 0u];
+            float p4 = x[idx < maxIndex - 1u ? idx + 2u :
                             (idx + 2u - std::floor((idx + 2u) * invXLength) *
                              xLength)];
             *dstIt = h1 * p2 + h2 * p3 +
@@ -614,30 +609,30 @@ void sampleCubic(Buffer<N1> &dst, const Buffer<N2> &x, const Buffer<N3> &t,
     }
     else {
         for (; dstIt != dstEnd; dstIt++, tIt++) {
-            Sample tDash = *tIt < 0.0f ? 0.0f :
+            float tDash = *tIt < 0.0f ? 0.0f :
                 *tIt > maxIndex ? maxIndex : *tIt;
             uint32_t idx = tDash;
-            Sample w = tDash - idx;
-            Sample w2 = w * w;
-            Sample w3 = w2 * w;
-            Sample h2 = -2.0f * w3 + 3.0f * w2;
-            Sample h1 = 1.0f - h2;
-            Sample h4 = w3 - w2;
-            Sample h3 = h4 - w2 + w;
-            Sample p1 = x[idx > 0u ? idx - 1u : 0u];
-            Sample p2 = x[idx];
-            Sample p3 = x[idx < maxIndex ? idx + 1u : 0u];
-            Sample p4 = x[idx < maxIndex - 1u ? idx + 2u : maxIndex];
+            float w = tDash - idx;
+            float w2 = w * w;
+            float w3 = w2 * w;
+            float h2 = -2.0f * w3 + 3.0f * w2;
+            float h1 = 1.0f - h2;
+            float h4 = w3 - w2;
+            float h3 = h4 - w2 + w;
+            float p1 = x[idx > 0u ? idx - 1u : 0u];
+            float p2 = x[idx];
+            float p3 = x[idx < maxIndex ? idx + 1u : 0u];
+            float p4 = x[idx < maxIndex - 1u ? idx + 2u : maxIndex];
             *dstIt = h1 * p2 + h2 * p3 +
                      0.5f * (h3 * (p3 - p1) + h4 * (p4 - p2));
         }
     }
 }
 
-template <size_t N1, size_t N2, size_t N3, size_t N4, size_t N5>
-void pack(Buffer<N1> &dst, uint32_t offset, uint32_t stride,
-          const Buffer<N2> *src1, const Buffer<N3> *src2=NULL,
-          const Buffer<N4> *src3=NULL, const Buffer<N5> *src4=NULL) {
+template <typename T>
+void pack(T &dst, uint32_t offset, uint32_t stride,
+          const T *src1, const T *src2=NULL,
+          const T *src3=NULL, const T *src4=NULL) {
     if ((src2 && src2->size() != src1->size()) ||
         (src3 && src3->size() != src1->size()) ||
         (src4 && src4->size() != src1->size())) {
@@ -684,10 +679,10 @@ void pack(Buffer<N1> &dst, uint32_t offset, uint32_t stride,
     }
 }
 
-template <size_t N1, size_t N2, size_t N3, size_t N4, size_t N5>
-void unpack(const Buffer<N1> &src, uint32_t offset, uint32_t stride,
-            Buffer<N2> *dst1, Buffer<N3> *dst2=NULL, Buffer<N4> *dst3=NULL,
-            Buffer<N5> *dst4=NULL) {
+template <typename T>
+void unpack(const T &src, uint32_t offset, uint32_t stride,
+            T *dst1, T *dst2=NULL, T *dst3=NULL,
+            T *dst4=NULL) {
     if ((dst2 && dst2->size() != dst1->size()) ||
         (dst3 && dst3->size() != dst1->size()) ||
         (dst4 && dst4->size() != dst1->size())) {
